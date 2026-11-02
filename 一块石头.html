@@ -1,0 +1,715 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+							<style>
+								body {
+									background-color: white; /* Ensure the iframe has a white background */
+								}
+
+								
+							</style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电子宠物石：多元宇宙大统一全知典藏版</title>
+    <style>
+        :root {
+            --bg: #0b0f19;
+            --panel: #111827;
+            --border: #374151;
+            --accent: #38bdf8;
+            --text-main: #f9fafb;
+            --text-sub: #9ca3af;
+            --danger: #f43f5e;
+            --success: #10b981;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+        .container {
+            background: var(--panel);
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+            width: 100%;
+            max-width: 820px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+        .header h1 { font-size: 16px; font-weight: 700; letter-spacing: 0.5px; }
+        .header-btns button {
+            background: #1f2937;
+            border: 1px solid var(--border);
+            color: var(--text-sub);
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-left: 6px;
+            transition: all 0.2s;
+        }
+        .header-btns button:hover { color: #fff; border-color: var(--accent); }
+
+        /* 宇宙版本横向滚动栏 */
+        .version-scroll {
+            display: flex;
+            gap: 6px;
+            padding: 10px 20px;
+            overflow-x: auto;
+            background: #090d16;
+            border-bottom: 1px solid var(--border);
+        }
+        .tab-btn {
+            white-space: nowrap;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            background: #111827;
+            font-size: 12px;
+            color: var(--text-sub);
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { border-color: var(--accent); color: #fff; }
+        .tab-btn.active {
+            background: var(--accent);
+            color: #0b0f19;
+            font-weight: 700;
+            border-color: var(--accent);
+        }
+
+        /* 舞台与石头展示 */
+        .stage {
+            text-align: center;
+            padding: 20px;
+            background: radial-gradient(circle at center, #1f2937 0%, #0b0f19 100%);
+            position: relative;
+        }
+        .rock-box {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.08s;
+        }
+        .rock-box:active { transform: scale(0.96); }
+        .rock-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 12px 24px rgba(0,0,0,0.6));
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .rock-vaporized {
+            opacity: 0.05 !important;
+            filter: blur(14px) drop-shadow(0 0 30px var(--accent)) !important;
+            transform: scale(0.4) rotate(45deg);
+        }
+        .profile-bar {
+            margin-top: 10px;
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+        .profile-bar strong { color: var(--accent); }
+
+        /* 宇宙时钟面板 */
+        .chronos {
+            background: #090d16;
+            margin: 0 20px 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+        .chronos-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+        .chronos-val { color: var(--accent); font-weight: 600; }
+        .warp-ctrl {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed var(--border);
+            font-size: 11px;
+            color: var(--text-sub);
+        }
+        .warp-ctrl select {
+            background: #1f2937;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            outline: none;
+        }
+
+        /* 终端输出日志 */
+        .console-box { padding: 0 20px; margin-bottom: 12px; }
+        #console {
+            background: #030712;
+            color: #38bdf8;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            line-height: 1.5;
+            font-family: ui-monospace, monospace;
+            border: 1px solid #1f2937;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* 按钮功能网格面板 */
+        .panels-wrapper { padding: 0 20px 20px; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+        .grid {
+            display: grid;
+            gap: 6px;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            max-height: 260px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .category-title {
+            grid-column: 1 / -1;
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            margin: 8px 0 2px;
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 2px;
+        }
+        .act-btn {
+            padding: 8px 4px;
+            border: 1px solid var(--border);
+            background: #1f2937;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            color: #d1d5db;
+            text-align: center;
+            transition: all 0.15s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .act-btn:hover { background: #374151; color: #fff; border-color: #6b7280; }
+        .act-btn:active { background: #4b5563; }
+
+        /* 弹窗样式 */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            z-index: 100;
+        }
+        .modal.active { display: flex; }
+        .modal-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 24px;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 440px;
+            line-height: 1.6;
+            font-size: 13px;
+        }
+        .modal-card h2 { font-size: 16px; margin-bottom: 12px; color: var(--accent); }
+        .modal-card p { margin-bottom: 10px; color: var(--text-sub); }
+        .modal-card input {
+            width: 100%;
+            background: #090d16;
+            border: 1px solid var(--border);
+            padding: 8px 12px;
+            color: #fff;
+            border-radius: 8px;
+            margin: 10px 0 16px;
+            font-size: 14px;
+            outline: none;
+        }
+        .modal-card button {
+            width: 100%;
+            background: var(--accent);
+            color: #090d16;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🪨 电子宠物石：多元宇宙大统一版</h1>
+        <div class="header-btns">
+            <button onclick="openModal('modal-doc')">科学说明</button>
+            <button onclick="openModal('modal-reg')">✨ 重新建档</button>
+        </div>
+    </div>
+
+    <!-- 宇宙切换滚轮 -->
+    <div class="version-scroll" id="version-tabs"></div>
+
+    <!-- 舞台展示区 -->
+    <div class="stage">
+        <div class="rock-box" id="rock-target" onclick="pokeRock()" title="施加力矩碰撞">
+            <!-- 过程化生成的独一无二岩石 SVG -->
+        </div>
+        <div class="profile-bar">
+            样本名称：<strong id="p-name">加载中...</strong> | 
+            成因分类：<span id="p-type">沉积岩</span> | 
+            质子完整性：<strong id="p-intact" style="color:var(--success);">100%</strong>
+        </div>
+    </div>
+
+    <!-- 宇宙时钟仪表板 -->
+    <div class="chronos">
+        <div class="chronos-row">
+            <span>现实流逝时长 (自然生存)：</span>
+            <span class="chronos-val" id="disp-real-time">0 秒</span>
+        </div>
+        <div class="chronos-row">
+            <span>宇宙纪元模拟时间 (推演)：</span>
+            <span class="chronos-val" id="disp-cosmic-time">0 年</span>
+        </div>
+        <div class="chronos-row">
+            <span>距离大统一质子衰变终结：</span>
+            <span class="chronos-val" id="disp-decay-remain" style="color:var(--danger)">计算中...</span>
+        </div>
+        <div class="warp-ctrl">
+            <span>时空曲率引擎 (流速倍乘)：</span>
+            <select id="warp-factor" onchange="changeWarp()">
+                <option value="1">1x (真实物理流速)</option>
+                <option value="31536000">3.15×10⁷x (1秒 = 1年)</option>
+                <option value="31536000000000">3.15×10¹³x (1秒 = 100万年)</option>
+                <option value="10000000000000000000000">10²²x (极速地质纪元)</option>
+                <option value="1000000000000000000000000000000000">10³³x (临界热寂蒸发倍速)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- 交互终端 -->
+    <div class="console-box">
+        <div id="console">> 系统已就绪。这块石头正在平静地存在着。</div>
+    </div>
+
+    <!-- 所有版本的面板容器 -->
+    <div class="panels-wrapper" id="action-panels"></div>
+</div>
+
+<!-- 科学说明弹窗 -->
+<div class="modal" id="modal-doc">
+    <div class="modal-card">
+        <h2>🔬 这块石头真的会死吗？</h2>
+        <p><strong>是的，在严谨的现代物理学中，没有任何物质能逃脱时间的终局。</strong></p>
+        <p>在大统一理论（GUT）中，构成石头（氧、硅、铝、铁原子）的不可或缺基石——<strong>质子（Proton）</strong>具有极长的半衰期（预测约为 <strong>10³⁴ 年</strong>）。</p>
+        <p>在这个极其漫长的时间尽头，原子核内的质子将全部自发解构衰变，化作微弱的辐射闪光与基本粒子云。<strong>整块石头将彻底蒸发，不留任何痕迹。</strong></p>
+        <p>你可以让它安静地在现实流速中陪伴你一生，也可以利用底部的<strong>“时空曲率引擎”</strong>调快时间流速，亲自见证它在时间终点的湮灭。</p>
+        <button onclick="closeModal('modal-doc')">我明白了</button>
+    </div>
+</div>
+
+<!-- 重新建档弹窗 -->
+<div class="modal" id="modal-reg">
+    <div class="modal-card">
+        <h2>🪨 专属岩石重新建档</h2>
+        <p>为你的新石头输入一个名字或代号。地质引擎将通过过程化算法即时合成其专属的晶体结构、棱角与矿物色泽。</p>
+        <input type="text" id="input-name" placeholder="例如：奥林匹斯玄武石" maxlength="16">
+        <button onclick="doCreateProfile()">立即生成并存盘</button>
+    </div>
+</div>
+
+<script>
+    // 质子半衰期：10^34 年 (以 BigInt 存储)
+    const PROTON_LIFETIME = 10000000000000000000000000000000000n;
+    let currentProfile = null;
+    let warpFactor = 1n;
+    let isVaporized = false;
+
+    // 完整的宇宙动作数据库
+    const database = {
+        base: {
+            title: "经典基础",
+            intro: "最原始的基础版本。纯粹、质朴、无机。",
+            actions: [
+                { name: "喂食", log: "你放了块面包在它旁边。三天后面包发霉了，石头完好如初。" },
+                { name: "带去散步", log: "你带它出门转了一圈。准确来说，是你把一块几十克的石头搬动了数公里。" },
+                { name: "倾诉心事", log: "它安静地听着，并守口如瓶，因为无机物没有信息传递机制。" },
+                { name: "教新技能", log: "你教它如何维持重力平衡，它瞬间掌握，稳如泰山。" }
+            ]
+        },
+        ent: {
+            title: "企业旗舰",
+            intro: "企业级解决方案。针对职场内耗深度优化。",
+            actions: [
+                { name: "固件 OTA", log: "检查更新中……底层硅架构极其稳固，版本【前寒武纪 0.0.1】已是最终长期支持版。" },
+                { name: "心率检测", log: "心率：0 BPM。体征极其平稳，毫无内耗风险。" },
+                { name: "激怒测试", log: "你试图激怒它，石头用令人窒息的情绪稳定性回击了你。" },
+                { name: "带去上班", log: "它在键盘旁蹲了一整天，摸鱼表现远超同部门所有资深员工。" },
+                { name: "赋能闭环", log: "试图打通它的底层逻辑，但石头缺乏任何抓手，项目流产。" },
+                { name: "全员大会", log: "开会三小时，石头全程保持肃静，未发表任何未经审批的异议。" }
+            ]
+        },
+        life: {
+            title: "石生万物",
+            intro: "人类社会的各种疯狂尝试，它都一视同仁地不予理睬。",
+            actions: [
+                { cat: "修仙玄学", name: "滴血认主", log: "血液渗入了微孔，现在它成了一块沾着血的石头。" },
+                { cat: "修仙玄学", name: "助其渡劫", log: "闪电从旁边划过，石头导电性极差，安详度过了雷劫。" },
+                { cat: "修仙玄学", name: "测算八字", log: "推算结果：五行全土，命硬到了极点，克一切烦恼。" },
+                { cat: "现代科技", name: "训练大模型", log: "Loss 收敛至 0，它的输出结果永远等于空字符串。" },
+                { cat: "现代科技", name: "铸造为 NFT", log: "链上哈希已写入，线下实体依然是一块不值钱的粗糙石头。" },
+                { cat: "社会心理", name: "安排相亲", log: "相亲对象是一块雨花石，双方深情对视一整天，一句话都没说。" },
+                { cat: "社会心理", name: "催还借款", log: "你向它讨债，它摆出一副'名下一无所有但骨头极硬'的姿态。" },
+                { cat: "临床医学", name: "核磁共振 MRI", log: "成像显示：内部密度高度均匀，未发现脑组织或思维痕迹。" },
+                { cat: "荒诞日常", name: "办健身卡", log: "年卡已生效，它从未踏入器械区一步，成为健身房最喜欢的用户。" },
+                { cat: "荒诞日常", name: "点全糖奶茶", log: "吸管找不到任何侵入通道，奶茶最终全进了你自己的肚子里。" }
+            ]
+        },
+        magic: {
+            title: "🧙‍♂️ 奇幻魔法",
+            intro: "全系禁咒与深渊恶魔齐聚一堂，准备对一块石头束手无策。",
+            actions: [
+                { name: "阿瓦达索命", log: "绿光呼啸而过！系统判定：目标无生命迹象，无法被判定为死亡。" },
+                { name: "终极变形术", log: "试图把它变成茶壶，但石头的矿物意志过于顽固，变形被抗性抵消。" },
+                { name: "恶魔交易契约", log: "深渊领主现身索要灵魂，扫描目标后骂骂咧咧地关闭了传送门。" },
+                { name: "神圣大祝福术", log: "圣光倾泻而下！洗礼完毕后，石头表面的灰尘被照亮了半秒钟。" }
+            ]
+        },
+        scifi: {
+            title: "🪐 星际深空",
+            intro: "二向箔、戴森球与旧日支配者在此静候。",
+            actions: [
+                { name: "二向箔打击", log: "二维化力场掠过。它变成了一块像素画石头，厚度归零但依然毫无反应。" },
+                { name: "反物质湮灭", log: "反质子束注入。部分原子湮灭释放伽马射线，剩余部分依然维持顽强固态。" },
+                { name: "智子视网膜锁定", log: "三体智子在其表面投射倒计时，由于石头没有视网膜，投射了个寂寞。" },
+                { name: "旧日支配者低语", log: "克苏鲁向其脑海低语疯狂梦境。石头缺乏精神SAN值系统，免疫狂乱。" }
+            ]
+        },
+        prehistoric: {
+            title: "🦖 史前演化",
+            intro: "沧海桑田，地球换了无数霸主，唯有此石永恒挂机。",
+            actions: [
+                { name: "大氧化事件", log: "蓝细菌在海洋里狂吐氧气，厌氧生物全灭。石头：表面微量氧化，略显红润。" },
+                { name: "小行星撞地球", log: "恐龙当场灭绝。石头被震飞了三米远，在新地方继续躺平了一千万年。" },
+                { name: "霸王龙踩踏", log: "霸王龙一脚踩到它的尖角，嗷嗷叫着捂着脚趾单腿跳着走开了。" }
+            ]
+        },
+        zen: {
+            title: "🧘 虚无禅宗",
+            intro: "形而上学与纯粹哲学的终极解构之地。",
+            actions: [
+                { name: "色即是空", log: "大师说：‘受想行识，亦复如是。’石头天生没有任何受想行识，早就成道了。" },
+                { name: "风动幡动", log: "僧问：‘风动还是幡动？’石头答：‘……’（六祖赞叹：此物不动）。" },
+                { name: "西西弗斯使命", log: "被推上山顶，滚落山脚。石头心想：‘这希腊老哥天天推我，服务挺周到。’" }
+            ]
+        },
+        cyber: {
+            title: "👾 赛博与引擎",
+            intro: "把石头当成游戏引擎里的未烘焙资产。",
+            actions: [
+                { name: "开启光追渲染", log: "显卡瞬间狂转！实时光追精准计算了表面每一颗二氧化硅的高光，依然是石头。" },
+                { name: "穿模作弊测试", log: "碰撞体 AABB 严丝合缝，玩家角色撞上去被弹飞了三米远。" },
+                { name: "敲电子木鱼", log: "功德 +1，功德 +1……由于石头本来就无欲无求，功德直接溢出。" },
+                { name: "喝生椰拿铁", log: "拿铁顺着侧面滑落。它未摄入任何咖啡因，依然困得像块石头。" }
+            ]
+        }
+    };
+
+    // 强健的确定性伪随机数生成器 (通过种子字符串生成多边形)
+    function generateRockSVG(seedStr) {
+        let h = 2166136261 >>> 0;
+        for (let i = 0; i < seedStr.length; i++) {
+            h = Math.imul(h ^ seedStr.charCodeAt(i), 16777619);
+        }
+        const pseudoRand = () => {
+            h += h << 13; h ^= h >>> 7; h += h << 3; h ^= h >>> 17; h += h << 5;
+            return ((h >>> 0) % 1000) / 1000;
+        };
+
+        const numPoints = 8 + Math.floor(pseudoRand() * 4); // 8-11 个顶点
+        const cx = 70, cy = 70, baseRadius = 46;
+        const pts = [];
+
+        for (let i = 0; i < numPoints; i++) {
+            const angle = (i / numPoints) * Math.PI * 2;
+            const r = baseRadius + (pseudoRand() - 0.5) * 26;
+            const x = Math.round(cx + Math.cos(angle) * r);
+            const y = Math.round(cy + Math.sin(angle) * r);
+            pts.push(`${x},${y}`);
+        }
+
+        const colorPalettes = [
+            { body: "#475569", stroke: "#334155", vein: "#1e293b" },
+            { body: "#57534e", stroke: "#44403c", vein: "#292524" },
+            { body: "#3f3f46", stroke: "#27272a", vein: "#18181b" },
+            { body: "#334155", stroke: "#1e293b", vein: "#0f172a" },
+            { body: "#52525b", stroke: "#3f3f46", vein: "#27272a" }
+        ];
+        const pal = colorPalettes[Math.floor(pseudoRand() * colorPalettes.length)];
+        const midPoint = pts[Math.floor(numPoints / 2)];
+
+        return `
+            <svg class="rock-svg" id="rock-svg" viewBox="0 0 140 140">
+                <polygon points="${pts.join(' ')}" fill="${pal.body}" stroke="${pal.stroke}" stroke-width="3.5" stroke-linejoin="round"/>
+                <path d="M ${pts[0]} Q 70 70 ${midPoint}" stroke="${pal.vein}" stroke-width="2" fill="none" opacity="0.6"/>
+                <circle cx="${60 + pseudoRand()*20}" cy="${60 + pseudoRand()*20}" r="${2 + pseudoRand()*2}" fill="${pal.vein}" opacity="0.7"/>
+            </svg>
+        `;
+    }
+
+    function initProfile() {
+        const stored = localStorage.getItem('pet_rock_unified_save');
+        if (stored) {
+            try {
+                const data = JSON.parse(stored);
+                currentProfile = {
+                    name: data.name,
+                    type: data.type,
+                    seed: data.seed,
+                    genesis: BigInt(data.genesis),
+                    simulatedYears: BigInt(data.simulatedYears || "0")
+                };
+            } catch(e) {
+                currentProfile = null;
+            }
+        }
+        if (!currentProfile) {
+            buildNewProfile("始源玄武岩");
+        }
+        applyProfileToUI();
+    }
+
+    function buildNewProfile(name) {
+        const types = ["深成花岗岩", "高压变质榴辉岩", "玄武角砾岩", "火成橄榄岩", "微晶石英体", "沉积辉绿岩"];
+        currentProfile = {
+            name: name,
+            type: types[Math.floor(Math.random() * types.length)],
+            seed: name + "_" + Math.floor(Math.random() * 999999),
+            genesis: BigInt(Date.now()),
+            simulatedYears: 0n
+        };
+        saveProfile();
+    }
+
+    function saveProfile() {
+        if (!currentProfile) return;
+        const serialized = {
+            name: currentProfile.name,
+            type: currentProfile.type,
+            seed: currentProfile.seed,
+            genesis: currentProfile.genesis.toString(),
+            simulatedYears: currentProfile.simulatedYears.toString()
+        };
+        localStorage.setItem('pet_rock_unified_save', JSON.stringify(serialized));
+    }
+
+    function applyProfileToUI() {
+        document.getElementById('p-name').innerText = currentProfile.name;
+        document.getElementById('p-type').innerText = currentProfile.type;
+        document.getElementById('rock-target').innerHTML = generateRockSVG(currentProfile.seed);
+        isVaporized = false;
+        document.getElementById('p-intact').style.color = "var(--success)";
+        document.getElementById('p-intact').innerText = "100%";
+    }
+
+    function doCreateProfile() {
+        const val = document.getElementById('input-name').value.trim();
+        const name = val || ("标本-" + Math.floor(Math.random() * 8999 + 1000));
+        buildNewProfile(name);
+        applyProfileToUI();
+        closeModal('modal-reg');
+        document.getElementById('input-name').value = '';
+        printLog(`新岩石样本【${name}】已成功建档并生成专属晶格。`);
+    }
+
+    function changeWarp() {
+        warpFactor = BigInt(document.getElementById('warp-factor').value);
+        if (warpFactor > 1n) {
+            printLog(`时空曲率引擎提速至 ${warpFactor.toString()} 倍速！`);
+        } else {
+            printLog("已恢复 1x 现实自然物理流速。");
+        }
+    }
+
+    function printLog(msg) {
+        document.getElementById('console').innerText = `> ${msg}`;
+    }
+
+    function pokeRock() {
+        if (isVaporized) {
+            printLog("你的手指穿过了真空格点，这里早已没有任何重子物质。");
+            return;
+        }
+        printLog("物理受力发生：表面形变 0.00 纳米，牛顿第三定律稳稳成立。");
+    }
+
+    // 毫秒级物理/时钟主循环
+    let lastTick = Date.now();
+    setInterval(() => {
+        const now = Date.now();
+        const deltaSec = (now - lastTick) / 1000;
+        lastTick = now;
+
+        if (!currentProfile) return;
+
+        // 真实存活时间 (秒)
+        const realSec = (BigInt(now) - currentProfile.genesis) / 1000n;
+        document.getElementById('disp-real-time').innerText = `${realSec.toLocaleString()} 秒`;
+
+        // 宇宙加速模拟 (年)
+        if (warpFactor > 1n) {
+            const addedYears = BigInt(Math.floor(Number(warpFactor) * deltaSec / 31536000));
+            currentProfile.simulatedYears += addedYears;
+        } else {
+            currentProfile.simulatedYears = realSec / 31536000n;
+        }
+
+        document.getElementById('disp-cosmic-time').innerText = `${currentProfile.simulatedYears.toLocaleString()} 年`;
+
+        // 质子半衰期终极判定
+        if (currentProfile.simulatedYears >= PROTON_LIFETIME) {
+            triggerVaporization();
+        } else {
+            const remain = PROTON_LIFETIME - currentProfile.simulatedYears;
+            document.getElementById('disp-decay-remain').innerText = `约 ${remain.toString().slice(0, 4)}... × 10³⁴ 年`;
+            const integrity = 100 - Number((currentProfile.simulatedYears * 100n) / PROTON_LIFETIME);
+            document.getElementById('p-intact').innerText = `${integrity}%`;
+        }
+    }, 100);
+
+    // 每 5 秒自动存盘
+    setInterval(() => { saveProfile(); }, 5000);
+
+    function triggerVaporization() {
+        if (isVaporized) return;
+        isVaporized = true;
+        document.getElementById('disp-decay-remain').innerText = "质子衰变已彻底完成 (0 年)";
+        document.getElementById('p-intact').innerText = "0% (物质湮灭)";
+        document.getElementById('p-intact').style.color = "var(--danger)";
+        
+        const svg = document.getElementById('rock-svg');
+        if (svg) svg.classList.add('rock-vaporized');
+        
+        printLog("⚠️ 观测警告：大统一半衰期已至。构成该矿物的所有质子已解体蒸发，现场仅余基本辐射光子云。");
+    }
+
+    // 构建所有宇宙版本面板
+    function initPanels() {
+        const tabBox = document.getElementById('version-tabs');
+        const panelBox = document.getElementById('action-panels');
+
+        Object.keys(database).forEach((key, idx) => {
+            const item = database[key];
+
+            // 切换标签
+            const b = document.createElement('button');
+            b.className = `tab-btn ${idx === 0 ? 'active' : ''}`;
+            b.innerText = item.title;
+            b.onclick = (e) => switchUniverse(key, e.target);
+            tabBox.appendChild(b);
+
+            // 内容面板
+            const p = document.createElement('div');
+            p.id = `panel-${key}`;
+            p.className = `panel ${idx === 0 ? 'active' : ''}`;
+
+            const grid = document.createElement('div');
+            grid.className = 'grid';
+
+            let lastCat = '';
+            item.actions.forEach(act => {
+                if (act.cat && act.cat !== lastCat) {
+                    lastCat = act.cat;
+                    const catTitle = document.createElement('div');
+                    catTitle.className = 'category-title';
+                    catTitle.innerText = `— ${lastCat} —`;
+                    grid.appendChild(catTitle);
+                }
+                const btn = document.createElement('button');
+                btn.className = 'act-btn';
+                btn.innerText = act.name;
+                btn.title = act.name;
+                btn.onclick = () => {
+                    if (isVaporized) {
+                        printLog("操作失败：目标区域未找到足以发生物理效应的重子物质。");
+                        return;
+                    }
+                    printLog(act.log);
+                };
+                grid.appendChild(btn);
+            });
+
+            p.appendChild(grid);
+            panelBox.appendChild(p);
+        });
+    }
+
+    function switchUniverse(key, targetBtn) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+
+        targetBtn.classList.add('active');
+        document.getElementById(`panel-${key}`).classList.add('active');
+        printLog(database[key].intro);
+    }
+
+    function openModal(id) { document.getElementById(id).classList.add('active'); }
+    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+    // 初始化
+    initProfile();
+    initPanels();
+</script>
+
+</body>
+</html>
+
+							<script>
+                            	
+							</script>
+                        </body>
+                        </html>
+                    
